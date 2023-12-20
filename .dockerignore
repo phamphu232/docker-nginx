@@ -1,0 +1,4 @@
+# By default, ignore everything
+*
+# Add exception for the files and directories you actually want to include in the context
+# !entrypoint.sh
