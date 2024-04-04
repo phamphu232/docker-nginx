@@ -2,3 +2,8 @@
 
 !/www/html/index.html
 /www/*
+
+!/nginx/conf.d/default.conf
+/nginx/conf.d/*
+
+docker-compose.yml

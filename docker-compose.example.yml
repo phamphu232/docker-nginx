@@ -1,0 +1,45 @@
+version: "3.7"
+
+networks:
+  nx_network:
+    driver: bridge
+
+services:
+  nginx:
+    image: nginx:1.25.1
+    container_name: con_nx_nginx
+    restart: unless-stopped
+    ports:
+      - "8081:80"
+      - "8444:443"
+    volumes:
+      ## localtime linux only
+      # - /etc/localtime:/etc/localtime:ro
+      - ./nginx:/etc/nginx
+      - ./certs:/etc/certs
+      - ./www:/var/www
+      - ./log/nginx:/var/log/nginx
+    working_dir: /var/www
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    healthcheck:
+      test: wget --quiet --tries=1 --spider http://localhost:8081/health-check || exit 1z
+      interval: 10s
+      timeout: 10s
+      retries: 3
+  php73:
+    image: phamphu232/php:7.3
+    container_name: con_nx_php73
+    restart: unless-stopped
+    expose:
+      - "9000"
+    volumes:
+      ## localtime linux only
+      # - /etc/localtime:/etc/localtime:ro
+      - ./www:/var/www
+      - ./php7.3/php.ini:/usr/local/etc/php/php.ini
+      - ./php7.3/php-fpm.conf:/usr/local/etc/php-fpm.conf
+      - ./php7.3/www.conf:/usr/local/etc/php-fpm.d/www.conf
+    working_dir: /var/www
+    extra_hosts:
+      - "host.docker.internal:host-gateway"

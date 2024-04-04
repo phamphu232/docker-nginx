@@ -1,5 +1,12 @@
 # docker-nginx
 
+## Setup
+
+```
+cp docker-compose.example.yml docker-compose.yml
+docker compose up -d
+```
+
 ## Example configuration 
 
 ```
