@@ -23,6 +23,8 @@ services:
     working_dir: /var/www
     extra_hosts:
       - "host.docker.internal:host-gateway"
+    networks:
+      - nx_network
     # command: "bash sed 's/\r//' /start_nginx.sh | cat -A - && /start_nginx.sh && /docker-entrypoint.sh"
     healthcheck:
       # test: wget --quiet --tries=1 --spider http://localhost:8081/health-check || exit 1z
@@ -45,6 +47,8 @@ services:
       - ./php7.3/php-fpm.conf:/usr/local/etc/php-fpm.conf
       - ./php7.3/www.conf:/usr/local/etc/php-fpm.d/www.conf
     working_dir: /var/www
+        networks:
+      - nx_network
     extra_hosts:
       - "host.docker.internal:host-gateway"
     # command: "bash sed 's/\r//' /start_php.sh | cat -A - &&  /start_php.sh && docker-php-entrypoint"
