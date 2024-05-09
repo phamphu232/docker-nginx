@@ -32,9 +32,9 @@ services:
       interval: 1m30s
       timeout: 10s
       retries: 3
-  php73:
-    image: phamphu232/php:7.3
-    container_name: con_nx_php73
+  php81:
+    image: phamphu232/php:8.1
+    container_name: con_nx_php8.1
     restart: unless-stopped
     expose:
       - "9000"
@@ -43,11 +43,11 @@ services:
       ## localtime linux only
       # - /etc/localtime:/etc/localtime:ro
       - ./www:/var/www
-      - ./php7.3/php.ini:/usr/local/etc/php/php.ini
-      - ./php7.3/php-fpm.conf:/usr/local/etc/php-fpm.conf
-      - ./php7.3/www.conf:/usr/local/etc/php-fpm.d/www.conf
+      - ./php8.1/php.ini:/usr/local/etc/php/php.ini
+      - ./php8.1/php-fpm.conf:/usr/local/etc/php-fpm.conf
+      - ./php8.1/www.conf:/usr/local/etc/php-fpm.d/www.conf
     working_dir: /var/www
-        networks:
+    networks:
       - nx_network
     extra_hosts:
       - "host.docker.internal:host-gateway"
